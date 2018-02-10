@@ -1,0 +1,16 @@
+<div style="border-top: 1px solid rgba(102, 97, 91, 0.3);">
+    <p>Search images</p>
+    <form (ngSubmit)="onSubmit(); searchForm.reset();" #searchForm="ngForm">
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" class="form-control border-input" id="title" name="title" placeholder="Enter title">
+        </div>
+        <div class="form-group">
+            <label for="title">Places</label>
+            <input type="text" class="form-control border-input" id="places" name="places" placeholder="Enter places">
+        </div>
+
+        <button type="submit" class="btn btn-success" [disabled]="!searchForm.form.valid">Submit</button>
+        <button type="button" class="btn btn-default" (click)="newSearch();">Reset</button>
+    </form>
+</div>
