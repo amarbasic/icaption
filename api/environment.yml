@@ -1,0 +1,12 @@
+name: icaption
+channels:
+  - conda-forge
+dependencies:
+  - python=3.5
+  - flask
+  - flask-sqlalchemy
+  - flask-httpauth
+  - pylint
+  - sqlalchemy
+  - passlib
+  - itsdangerous
