@@ -10,3 +10,6 @@ dependencies:
   - sqlalchemy
   - passlib
   - itsdangerous
+  - flask-script
+  - flask-migrate
+  - psycopg2

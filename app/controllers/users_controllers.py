@@ -4,15 +4,15 @@ from app import db, auth
 import base64
 from app.helpers.response import response_json
 
-users_bp = Blueprint('users', __name__, url_prefix='/api/users')
+users_api = Blueprint('users', __name__, url_prefix='/api/users')
 
-@users_bp.route('/', methods=["GET"])
+@users_api.route('/', methods=["GET"])
 @auth.login_required
 def get_users():
     users = User.query.all()
     return response_json([u.serialize for u in users], 200)
 
-@users_bp.route('/<int:id>', methods=["GET"])
+@users_api.route('/<int:id>', methods=["GET"])
 @auth.login_required
 def get_user(id):
     user = User.query.get(id)
@@ -21,7 +21,7 @@ def get_user(id):
     return response_json(user.serialize, 200)
 
 
-@users_bp.route('/new', methods=['POST'])
+@users_api.route('/new', methods=['POST'])
 def new_user():
     try:
         name = request.json.get('name')
@@ -40,7 +40,7 @@ def new_user():
         print(ex)
         return response_json({"error": "Exception occured"}, 500)
 
-@users_bp.route('/login', methods=['POST'])
+@users_api.route('/login', methods=['POST'])
 def login():
     try:
         email = request.json.get('email')
@@ -51,9 +51,16 @@ def login():
             return response_json({"message": "Wrong email or password"})
         
         g.user = user
-        token = user.generate_token(600)
+        token = user.generate_token(60*60*24)
         return response_json({'token': token.decode('ascii'), 'duration': 600})
-    except Exception:
-        return response_json({"error": "Wrong username or password"}, status=400)
+    except Exception as ex:
+        return response_json({"error": "Bad params"}, status=400)
 
     
+@auth.verify_token
+def verify_password(token):
+    user = User.verify_auth_token(token)
+    if not user:
+        return False
+    g.user = user
+    return True

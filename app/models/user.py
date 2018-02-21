@@ -7,11 +7,12 @@ from itsdangerous import (TimedJSONWebSignatureSerializer as Serializer, BadSign
 
 from app.helpers.response import json_date
 
-class User(Base):
+class User(Base, db.Model):
     __tablename__ = 'users'
     name = db.Column(db.String(128), nullable=False)
     email = db.Column(db.String(128), nullable=False, unique=True)
-    password = db.Column(db.String(64), nullable=False)
+    password = db.Column(db.String(128), nullable=False)
+    albums = db.relationship('Album', backref='album')
 
     def hash_password(self, password):
         self.password = pwd_context.encrypt(password)
