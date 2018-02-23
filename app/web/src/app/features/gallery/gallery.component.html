@@ -1,4 +1,30 @@
 <div class="container-fluid">
+    <div class="row" *ngIf=newGallery>
+        <div class="card">
+            <div class="header">
+                <h4 class="title">Create new gallery
+                    <a type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="newGallery=!newGallery">
+                        <span aria-hidden="true">&times;</span>
+                    </a>
+                </h4>
+            </div>
+            <div class="content">
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3">
+                        <form name="gallery-form" (ngSubmit)="f.form.valid && create()" #f="ngForm" novalidate>
+                            <div class="form-group">
+                                <label for="gallery_name">Gallery name</label>
+                                <input type="text" name="gallery_name" id="gallery_name" class="form-control" placeholder="Gallery name" [(ngModel)]="newAlbumModel.name" #name="ngModel" required>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-success">Create</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="row">
         <div class="col-md-12">
             <div class="card">
@@ -9,7 +35,7 @@
                 <div class="content">
                     <div class="row text-center text-lg-left">
                         <div class="col-lg-3 col-md-4 col-xs-6">
-                            <a href="#" class="d-block mb-4 h-100">
+                            <a (click)="newGallery=!newGallery" class="d-block mb-4 h-100">
                                 <div>
                                     <p style="font-size:5em">+</p>
                                     <p>Add new</p>

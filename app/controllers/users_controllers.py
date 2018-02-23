@@ -48,7 +48,7 @@ def login():
 
         user = User.query.filter_by(email=email).first()
         if not user or not user.verify_password(password):
-            return response_json({"message": "Wrong email or password"})
+            return response_json({"error": "Wrong email or password"}, status=400)
         
         g.user = user
         token = user.generate_token(60*60*24)

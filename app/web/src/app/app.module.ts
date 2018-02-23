@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app.routing.module';
 
 // Components
@@ -15,7 +15,12 @@ import { DashboardComponent } from './features/dashboard/dashboard.component';
 import { CommonModule } from '@angular/common';
 import { SettingsComponent } from './features/settings/settings.component';
 import { SearchComponent } from './shared/search/search.component';
-
+import { LoginComponent } from './features/login/login.component';
+import { AuthService } from './services/auth/auth.service';
+import { AuthGuard } from './services/auth/auth.guard';
+import { AuthInterceptor } from './services/auth/auth.intercepter';
+import { UsersServices } from './services/user/user.service';
+import { AlbumsServices } from './services/album/album.service';
 
 
 @NgModule({
@@ -26,7 +31,8 @@ import { SearchComponent } from './shared/search/search.component';
     GalleryComponent,
     DashboardComponent,
     SettingsComponent,
-    SearchComponent
+    SearchComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +43,17 @@ import { SearchComponent } from './shared/search/search.component';
     CommonModule,
     BrowserAnimationsModule,
   ],
-  providers: [],
+  providers: [
+    AuthService,
+    AuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
+    UsersServices,
+    AlbumsServices
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

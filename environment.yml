@@ -13,3 +13,4 @@ dependencies:
   - flask-script
   - flask-migrate
   - psycopg2
+  - flask-cors

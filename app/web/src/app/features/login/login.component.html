@@ -1,0 +1,64 @@
+<div class="row login-page">
+    <div class="col-md-6">
+    </div>
+    <div class="col-md-4">
+        <div id="registration-part">
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <a data-toggle="tab" href="#login">Login</a>
+                </li>
+                <li>
+                    <a data-toggle="tab" href="#register">Register</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div id="login" class="tab-pane fade in active login-tab">
+                    <form name="login-form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
+                        <div class="form-group">
+                            <label for="username">Email</label>
+                            <input type="text" name="email" id="email" class="form-control" placeholder="Email" [(ngModel)]="loginModel.email" #email="ngModel"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" name="password" id="password" class="form-control" placeholder="Password" [(ngModel)]="loginModel.password"
+                                #password="ngModel" required>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-success" style="width:100%">Login</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div id="register" class="tab-pane fade login-tab">
+                    <form id="registration-form" (ngSubmit)="registrationForm.form.valid && registration()" #registrationForm="ngForm" novalidate>
+                        <div class="form-group">
+                            <label for="registration_name">Name</label>
+                            <input type="text" name="registration_name" id="registration_name" class="form-control" placeholder="Name" [(ngModel)]="registrationModel.name"
+                                #name="ngModel" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="registration_email">Email</label>
+                            <input type="text" name="registration_email" id="registration_email" class="form-control" placeholder="Email" [(ngModel)]="registrationModel.email"
+                                #email="ngModel" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="registration_password">Password</label>
+                            <input type="password" name="registration_password" id="registration_password" class="form-control" placeholder="Password"
+                                [(ngModel)]="registrationModel.password" #password="ngModel" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="registration_password_confirmation">Password Confirmation</label>
+                            <input type="password" name="registration_password_confirmation" id="registration_password_confirmation" class="form-control"
+                                placeholder="Password confirmation" [(ngModel)]="registrationModel.password_confirmation" #passwordConfirmation="ngModel"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-success" style="width:100%">Register</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

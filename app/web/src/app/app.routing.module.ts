@@ -4,13 +4,16 @@ import { NgModule } from "@angular/core";
 import { DashboardComponent } from "./features/dashboard/dashboard.component";
 import { GalleryComponent } from "./features/gallery/gallery.component";
 import { SettingsComponent } from "./features/settings/settings.component";
+import { LoginComponent } from "./features/login/login.component";
+import { AuthGuard } from "./services/auth/auth.guard";
 
 
 
 const routes: Routes = [
-    { path: '', component: DashboardComponent },
-    { path: 'gallery', component: GalleryComponent },
-    { path: 'settings', component: SettingsComponent },
+    { path: '', component: DashboardComponent, canActivate: [AuthGuard] },
+    { path: 'gallery', component: GalleryComponent, canActivate: [AuthGuard] },
+    { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
+    { path: 'login', component: LoginComponent },
     { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
 

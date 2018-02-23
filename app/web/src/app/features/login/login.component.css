@@ -1,0 +1,32 @@
+.login-tab {
+    padding-top: 2em;
+    padding-left: 2em;
+    padding-right: 2em;
+}
+
+.login-page {
+    background-image: url(/../../assets/photo_bg.jpeg);
+    background-position: center center;
+    background-repeat:  no-repeat;
+    background-attachment: fixed;
+    background-size:  cover;
+    background-color: #999;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 10;
+    overflow-y: auto;
+}
+
+#registration-part {
+    margin-top: 8em;
+    background-color: #fbfbfb;
+    padding: 0em 0em 2em 0em;
+    border-radius: 1em;
+}
+
+.nav-tabs > li {
+    width: 50%;
+}

@@ -1,4 +1,4 @@
-<div class="wrapper">
+<div class="wrapper" *ngIf=authenticated()>
     <app-sidebar></app-sidebar>
     <div class="main-panel">
         <app-navbar></app-navbar>
@@ -6,4 +6,8 @@
             <router-outlet></router-outlet>
         </div>
     </div>
+</div>
+
+<div class="container-fluid" *ngIf="!authenticated()">
+    <app-login></app-login>
 </div>

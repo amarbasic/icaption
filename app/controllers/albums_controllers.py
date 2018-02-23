@@ -11,8 +11,12 @@ albums_api = Blueprint('albums', __name__, url_prefix='/api/albums')
 @albums_api.route('/', methods=["GET"])
 @auth.login_required
 def get_albums_for_logged_user():
-    albums = albums_repository.get_albums(g.user)
-    return response_json(albums, 200)
+    try:
+        albums = albums_repository.get_albums(g.user)
+        return response_json(albums, 200)
+    except Exception as ex:
+        print(ex)
+        return response_json({"error": "Exception occured"}, 500)
 
 @albums_api.route('/<int:id>', methods=["GET"])
 @auth.login_required

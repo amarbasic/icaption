@@ -2,10 +2,13 @@ import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_httpauth import HTTPTokenAuth
+from flask_cors import CORS
 
 app = Flask(__name__)
 
 app.config.from_object('config')
+
+cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 db = SQLAlchemy(app)
 db.init_app(app)
