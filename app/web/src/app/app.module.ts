@@ -10,7 +10,7 @@ import { AppRoutingModule } from './app.routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
-import { GalleryComponent } from './features/gallery/gallery.component';
+import { GalleryComponent } from './features/gallery/gallery-list/gallery.component';
 import { DashboardComponent } from './features/dashboard/dashboard.component';
 import { CommonModule } from '@angular/common';
 import { SettingsComponent } from './features/settings/settings.component';
@@ -21,6 +21,7 @@ import { AuthGuard } from './services/auth/auth.guard';
 import { AuthInterceptor } from './services/auth/auth.intercepter';
 import { UsersServices } from './services/user/user.service';
 import { AlbumsServices } from './services/album/album.service';
+import { GalleryViewComponent } from './features/gallery/gallery-view/gallery-view.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { AlbumsServices } from './services/album/album.service';
     DashboardComponent,
     SettingsComponent,
     SearchComponent,
-    LoginComponent
+    LoginComponent,
+    GalleryViewComponent
   ],
   imports: [
     BrowserModule,

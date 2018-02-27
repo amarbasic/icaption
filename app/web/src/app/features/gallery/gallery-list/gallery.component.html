@@ -14,7 +14,8 @@
                         <form name="gallery-form" (ngSubmit)="f.form.valid && create()" #f="ngForm" novalidate>
                             <div class="form-group">
                                 <label for="gallery_name">Gallery name</label>
-                                <input type="text" name="gallery_name" id="gallery_name" class="form-control" placeholder="Gallery name" [(ngModel)]="newAlbumModel.name" #name="ngModel" required>
+                                <input type="text" name="gallery_name" id="gallery_name" class="form-control" placeholder="Gallery name" [(ngModel)]="newAlbumModel.name"
+                                    #name="ngModel" required>
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-success">Create</button>
@@ -43,9 +44,15 @@
                             </a>
                         </div>
                         <div *ngFor="let album of albums" class="col-lg-3 col-md-4 col-xs-6">
-                            <a href="#" class="d-block mb-4 h-100">
-                                <img class="img-fluid img-thumbnail" src="http://placehold.it/400x300" alt="{{ album }}">
-                            </a>
+                            <div class="image-container" (click)="showGallery(album.id)">
+                                <img src="{{ album.preview.data }}" alt="{{ album.name }}" class="image" style="width:100%">
+                                <div class="middle">
+                                    <div class="text">
+                                        <p><b>Album name: </b>{{ album.name }}</p>
+                                        <p><b>Images: </b>{{ album.number_of_images }}</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

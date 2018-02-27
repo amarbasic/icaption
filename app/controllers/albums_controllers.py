@@ -35,3 +35,34 @@ def new_album():
         print(ex)
         return response_json({"error": "Bad params"}, 400)
 
+@albums_api.route('/<int:id>/new', methods=["POST"])
+@auth.login_required
+def new_image(id):
+    try:
+        images = albums_repository.insert_album_images(id, request.json['images'])
+        return response_json(images, status=200)
+    except Exception as ex:
+        print(ex)
+        return response_json({"error": "Bad params"}, 400)
+
+@albums_api.route('/<int:id>', methods=["DELETE"])
+@auth.login_required
+def delete_album(id):
+    try:
+        albums_repository.delete_album(id)
+        return response_json({"message": "Album deleted" }, status=200)
+    except Exception as ex:
+        print(ex)
+        return response_json({"error": "Bad params"}, 400)
+
+
+@albums_api.route('/images/<int:id>', methods=["DELETE"])
+@auth.login_required
+def delete_image(id):
+    try:
+        albums_repository.delete_image(id)
+        return response_json({"message": "Image deleted" }, status=200)
+    except Exception as ex:
+        print(ex)
+        return response_json({"error": "Bad params"}, 400)
+

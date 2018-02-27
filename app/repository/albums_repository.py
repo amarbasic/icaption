@@ -1,5 +1,6 @@
 from app.models.album import Album
 from app.models.user import User
+from app.models.image import Image
 from app import db
 from flask import g
 import random
@@ -11,7 +12,7 @@ def get_albums(user):
     for album in albums:
         preview = random.choice(album.images) if len(album.images) > 0 else None
         album = album.serialize
-        album['preview'] = preview.serialize if preview else None
+        album['preview'] = preview.serialize if preview else { "data": "http://placehold.it/400x300" }
         result.append(album)
     return result
 
@@ -37,4 +38,25 @@ def get_album_images(album_id):
     result = []
     for image in album.images:
         result.append(image.serialize)
+    return {
+        'name': album.name,
+        'images': result
+    }
+
+def insert_album_images(album_id, images):
+    result = []
+    for image in images:
+        data = bytes(image, "ascii")
+        entity = Image(data=data, album_id=album_id, name="No name")
+        db.session.add(entity)
+        db.session.commit()
+        result.append(entity.serialize)
     return result
+
+def delete_album(album_id):
+    db.session.delete(Album.query.get(album_id))
+    db.session.commit()
+
+def delete_image(image_id):
+    db.session.delete(Image.query.get(image_id))
+    db.session.commit()

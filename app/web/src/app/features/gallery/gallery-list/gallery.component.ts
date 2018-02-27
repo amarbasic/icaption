@@ -1,25 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-import { AlbumsServices } from '../../services/album/album.service';
-import { NewAlbumModel, AlbumModel } from '../../models/album.model';
+import { AlbumsServices } from '../../../services/album/album.service';
+import { NewAlbumModel, AlbumModel } from '../../../models/album.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-gallery',
   templateUrl: 'gallery.component.html',
-  styles: []
+  styleUrls: ['gallery.component.css']
 })
 export class GalleryComponent implements OnInit {
   newAlbumModel: NewAlbumModel;
-  albums: any[];
+  albums: AlbumModel[];
 
-  constructor(private albumService: AlbumsServices) {
+  constructor(private albumService: AlbumsServices, private router: Router) {
     this.newAlbumModel = new NewAlbumModel();
   }
 
   ngOnInit() {
     this.albumService.getAlbums().subscribe(
       (res: any) => {
-        console.log(res);
         this.albums = res
+        console.log(res);
       },
       (err: any) => {
         console.log(err);
@@ -28,14 +29,17 @@ export class GalleryComponent implements OnInit {
   }
 
   create() {
-    console.log(this.newAlbumModel);
     this.albumService.insertAlbum(this.newAlbumModel).subscribe(
       (res:any) => {
-        console.log(res);
+        this.albums.push(res);
       },
       (err: any) => {
         console.log(err);
       }
     );
+  }
+
+  showGallery(album_id) {
+    this.router.navigateByUrl("gallery/" + album_id);
   }
 }
