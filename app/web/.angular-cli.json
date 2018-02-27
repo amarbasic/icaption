@@ -22,7 +22,7 @@
         "../node_modules/bootstrap/dist/css/bootstrap.min.css",
         "../node_modules/font-awesome/css/font-awesome.min.css",
         "../node_modules/ng2-toastr/bundles/ng2-toastr.min.css",
-        "assets/css/paper-dashboard.css",
+        "assets/css/paper.min.css",
         "styles.css"
       ],
       "scripts": [
