@@ -31,7 +31,11 @@ def insert_album(name):
     album = Album(name=name, user_id=g.user.id)
     db.session.add(album)
     db.session.commit()
-    return album.serialize
+
+    album =  album.serialize
+    album['preview'] = { "data": "http://placehold.it/400x300" }
+    return album
+
 
 def get_album_images(album_id):
     album = Album.query.get(album_id)
@@ -60,3 +64,20 @@ def delete_album(album_id):
 def delete_image(image_id):
     db.session.delete(Image.query.get(image_id))
     db.session.commit()
+
+
+def get_number_of_albums():
+    return len(Album.query.all())
+
+def get_number_of_images():
+    return sum([len(album.images) for album in Album.query.all()])
+
+def get_number_of_runs():
+    return 3
+
+def get_notifications():
+    return [
+        {"message": "Algorithm for captioning Summer time gallery is done", "status": "Done", "date": "2018-21-01"},
+        {"message": "Exception occured", "status": "Error", "date": "2018-21-01"},
+        {"message": "Algorithm for captioning Summer time gallery is started", "status": "In progress", "date": "2018-21-01"},
+    ]

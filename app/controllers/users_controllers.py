@@ -28,9 +28,9 @@ def new_user():
         email = request.json.get('email')
         password = base64.b64decode(request.json.get('password'))
         if name is None or email is None or password is None or (password != base64.b64decode(request.json.get('password_confirmation'))):
-            response_json({"error": "Bad params"}, 400)
+            return response_json("Bad params", 400)
         if User.query.filter_by(email=email).first() is not None:
-            response_json({"error": "User exists"}, 400)
+            return response_json("User exists", 400)
         user = User(email=email, name=name)
         user.hash_password(password)
         db.session.add(user)
@@ -38,7 +38,7 @@ def new_user():
         return response_json(user.serialize, 201)
     except Exception as ex:
         print(ex)
-        return response_json({"error": "Exception occured"}, 500)
+        return response_json("Exception occured", 500)
 
 @users_api.route('/login', methods=['POST'])
 def login():
@@ -48,13 +48,13 @@ def login():
 
         user = User.query.filter_by(email=email).first()
         if not user or not user.verify_password(password):
-            return response_json({"error": "Wrong email or password"}, status=400)
+            return response_json("Wrong email or password", status=400)
         
         g.user = user
         token = user.generate_token(60*60*24)
-        return response_json({'token': token.decode('ascii'), 'duration': 600})
+        return response_json({'token': token.decode('ascii'), 'duration': 600, 'username': user.name})
     except Exception as ex:
-        return response_json({"error": "Bad params"}, status=400)
+        return response_json("Bad params", status=400)
 
     
 @auth.verify_token

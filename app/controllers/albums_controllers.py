@@ -16,7 +16,7 @@ def get_albums_for_logged_user():
         return response_json(albums, 200)
     except Exception as ex:
         print(ex)
-        return response_json({"error": "Exception occured"}, 500)
+        return response_json("Exception occured", 500)
 
 @albums_api.route('/<int:id>', methods=["GET"])
 @auth.login_required
@@ -33,7 +33,7 @@ def new_album():
         return response_json(album, 201)
     except Exception as ex:
         print(ex)
-        return response_json({"error": "Bad params"}, 400)
+        return response_json("Bad params", 400)
 
 @albums_api.route('/<int:id>/new', methods=["POST"])
 @auth.login_required
@@ -43,7 +43,7 @@ def new_image(id):
         return response_json(images, status=200)
     except Exception as ex:
         print(ex)
-        return response_json({"error": "Bad params"}, 400)
+        return response_json("Bad params", 400)
 
 @albums_api.route('/<int:id>', methods=["DELETE"])
 @auth.login_required
@@ -53,7 +53,7 @@ def delete_album(id):
         return response_json({"message": "Album deleted" }, status=200)
     except Exception as ex:
         print(ex)
-        return response_json({"error": "Bad params"}, 400)
+        return response_json("Bad params", 400)
 
 
 @albums_api.route('/images/<int:id>', methods=["DELETE"])
@@ -64,5 +64,5 @@ def delete_image(id):
         return response_json({"message": "Image deleted" }, status=200)
     except Exception as ex:
         print(ex)
-        return response_json({"error": "Bad params"}, 400)
+        return response_json("Bad params", 400)
 

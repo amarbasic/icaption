@@ -15,12 +15,16 @@ export class NavbarComponent {
     private nativeElement: Node;
     private toggleButton;
     private sidebarVisible: boolean;
+    username: string;
 
     @ViewChild("app-navbar") button;
 
     constructor(private renderer: Renderer, private element: ElementRef, private authService: AuthService, private router: Router) {
         this.nativeElement = element.nativeElement;
         this.sidebarVisible = false;
+        if (localStorage.getItem("username")) {
+            this.username = localStorage.getItem("username");
+        }
     }
 
     ngOnInit() {

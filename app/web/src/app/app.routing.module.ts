@@ -11,12 +11,12 @@ import { GalleryViewComponent } from "./features/gallery/gallery-view/gallery-vi
 
 
 const routes: Routes = [
-    { path: '', component: DashboardComponent, canActivate: [AuthGuard] },
+    { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
     { path: 'gallery', component: GalleryComponent, canActivate: [AuthGuard] },
     { path: 'gallery/:id', component: GalleryViewComponent, canActivate: [AuthGuard] },
     { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
     { path: 'login', component: LoginComponent },
-    { path: '**', redirectTo: '', pathMatch: 'full' }
+    { path: '**', redirectTo: 'dashboard', pathMatch: 'full' }
 ];
 
 @NgModule({

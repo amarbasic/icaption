@@ -8,7 +8,8 @@ import { AuthService } from './services/auth/auth.service';
 })
 export class AppComponent {
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) {
+  }
 
   authenticated() {
     return this.authService.authenticated();

@@ -23,6 +23,11 @@ import { UsersServices } from './services/user/user.service';
 import { AlbumsServices } from './services/album/album.service';
 import { GalleryViewComponent } from './features/gallery/gallery-view/gallery-view.component';
 
+// Libraries
+import {ToastModule} from 'ng2-toastr/ng2-toastr';
+import { DashboardServices } from './services/dashboard/dashboard.service';
+
+
 
 @NgModule({
   declarations: [
@@ -44,6 +49,7 @@ import { GalleryViewComponent } from './features/gallery/gallery-view/gallery-vi
     AppRoutingModule,
     CommonModule,
     BrowserAnimationsModule,
+    ToastModule.forRoot()
   ],
   providers: [
     AuthService,
@@ -54,7 +60,8 @@ import { GalleryViewComponent } from './features/gallery/gallery-view/gallery-vi
       multi: true
     },
     UsersServices,
-    AlbumsServices
+    AlbumsServices,
+    DashboardServices
   ],
   bootstrap: [AppComponent]
 })

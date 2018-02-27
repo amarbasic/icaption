@@ -1,1 +1,117 @@
-<h1>Welcome to Dashboard</h1>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="content">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <div class="icon-big icon-warning text-center">
+                                <i class="fa fa-file"></i>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="numbers">
+                                <p>Galleries</p>
+                                {{ dashboard_data.galleries }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer">
+                        <hr>
+                        <div class="stats">
+                            Number of galleries
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="content">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <div class="icon-big icon-primary text-center">
+                                <i class="fa fa-file-image-o"></i>
+                            </div>
+                        </div>
+                        <div class="col-xs-8">
+                            <div class="numbers">
+                                <p>Images</p>
+                                {{ dashboard_data.images }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer">
+                        <hr>
+                        <div class="stats">
+                            Number of images
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="content">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <div class="icon-big icon-success text-center">
+                                <i class="fa fa-spinner"></i>
+                            </div>
+                        </div>
+                        <div class="col-xs-8">
+                            <div class="numbers">
+                                <p>Runs</p>
+                                {{ dashboard_data.runs }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer">
+                        <hr>
+                        <div class="stats">
+                            Algorithms in background
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="header">
+                    <h4 class="title">Notifications</h4>
+                    <p class="category">All messages</p>
+                </div>
+                <div class="content table-responsive table-full-width">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Message</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let notification of dashboard_data.notifications">
+                                <td>{{ notification.message }}</td>
+                                <td>
+                                    <span [ngClass]="notification.status == 'Done' ? 'table-info level-success' : (notification.status == 'In progress' ? 'table-info level-info' : 'table-info level-error')">
+                                        {{ notification.status }}
+                                    </span>
+                                </td>
+                                <td>{{ notification.date }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -42,31 +42,21 @@
                     <h4 class="title">
                         Gallery
                         <b> {{ album.name }} </b>
-                        <span class="btn btn-danger" style="float:right;" (click)="deleteGallery(id)">Delete</span>
-                        <span class="btn btn-danger" style="float:right;" (click)="deleteGallery(id)">Delete</span>
+                        <div style="float:right;">
+                            <span class="btn btn-primary" (click)="newImages=!newImages">Add Images</span>
+                            <span class="btn btn-success" (click)="newImages=!newImages">Run Algorithm</span>
+                            <span class="btn btn-danger" (click)="deleteGallery(id)">Delete</span>
+                        </div>
                     </h4>
-                    <p class="category">
-                        <a (click)="newImages=!newImages" class="d-block mb-4 h-100">
-                            + Add new
-                        </a>
-
-                    </p>
+                    <hr>
                 </div>
                 <div class="content">
                     <div class="row text-center text-lg-left">
-                        <div *ngFor="let currentImage of album.images" class="col-lg-3 col-md-4 col-xs-6">
+                        <div *ngFor="let currentImage of album.images" class="col-md-4">
                             <div class="image-container">
                                 <img src="{{ currentImage.data }}" alt="{{ currentImage.name }}" class="image" style="width:100%">
                                 <div class="middle">
                                     <div class="text">
-                                        <div>
-                                            <h5>
-                                                Image info
-                                                <a style="font-size: 0.75em; color:#bd3017;" class="pull-right" (click)="deleteImage(currentImage.id)">Delete</a>
-                                            </h5>
-                                            
-                                        </div>
-                                        <hr>
                                         <p>
                                             <b>Image caption: </b>{{ currentImage.name }} With Really Big Caption Generated
                                             With Python Machine Learning
@@ -74,6 +64,15 @@
                                         <p>
                                             <b>Created: </b>{{ currentImage.created_at }}
                                         </p>
+                                        <hr>
+                                        <div>
+                                            <div style="font-size: 0.9em;">
+                                                <a style="color:#7AC29A;" (click)="deleteImage(currentImage.id)">Run algorithm</a>
+                                                |
+                                                <a style="color:#EB5E28;" (click)="deleteImage(currentImage.id)">Delete</a>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>

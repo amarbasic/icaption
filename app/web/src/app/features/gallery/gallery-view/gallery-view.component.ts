@@ -1,6 +1,7 @@
-import { Component, OnInit, OnDestroy, ChangeDetectorRef } from "@angular/core";
+import { Component, OnInit, OnDestroy, ChangeDetectorRef, ViewContainerRef } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { AlbumsServices } from "../../../services/album/album.service";
+import { ToastsManager } from "ng2-toastr";
 
 
 @Component({
@@ -23,7 +24,12 @@ export class GalleryViewComponent implements OnInit, OnDestroy {
     public debug_size_before: string[] = [];  
     public debug_size_after: string[] = [];  
 
-    constructor(private router: Router, private route: ActivatedRoute, private albumService: AlbumsServices, private changeDetectorRef: ChangeDetectorRef) { }
+    constructor(private router: Router, 
+        private route: ActivatedRoute, private albumService: AlbumsServices, 
+        private changeDetectorRef: ChangeDetectorRef,
+        public toastr: ToastsManager, vcr: ViewContainerRef) {
+            this.toastr.setRootViewContainerRef(vcr);
+         }
 
     ngOnInit() {
         this.sub = this.route.params.subscribe(params => {
@@ -51,9 +57,13 @@ export class GalleryViewComponent implements OnInit, OnDestroy {
                     this.album.images.push(element);
                 });
                 this.file_srcs = []
+                this.toastr.success("Images added", 'Success!');
             },
             (err: any) => {
                 console.log(err);
+                if (err.error)
+                    this.toastr.error(err.error, 'Something went wrong!');
+                else this.toastr.error("Please try again", 'Something went wrong!');
             }
         );
 
@@ -63,10 +73,13 @@ export class GalleryViewComponent implements OnInit, OnDestroy {
         this.albumService.deleteAlbum(album_id).subscribe(
             (res: any) => {
                 console.log(res);
-                this.router.navigateByUrl("/gallery");
+                this.router.navigate(["/gallery"], { queryParams: {'message': res.message} });
             },
             (err: any) => {
                 console.log(err);
+                if (err.error)
+                    this.toastr.error(err.error, 'Something went wrong!');
+                else this.toastr.error("Please try again", 'Something went wrong!');
             }
         );
     }
@@ -76,9 +89,13 @@ export class GalleryViewComponent implements OnInit, OnDestroy {
             (res: any) => {
                 console.log(res);
                 this.album.images = this.album.images.filter(image => image.id != image_id);
+                this.toastr.success(res.message, 'Success!');
             },
             (err: any) => {
                 console.log(err);
+                if (err.error)
+                    this.toastr.error(err.error, 'Something went wrong!');
+                else this.toastr.error("Please try again", 'Something went wrong!');
             }
         );
     }
