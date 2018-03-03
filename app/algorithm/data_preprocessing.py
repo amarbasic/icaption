@@ -12,7 +12,7 @@ from keras.applications.inception_v3 import preprocess_input
 from keras.applications import InceptionV3
 from keras.preprocessing import image
 
-from src.utils import helper
+from app.algorithm import helper
 
 
 class DataPreprocessing(object):

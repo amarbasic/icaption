@@ -3,7 +3,8 @@ from app.models.album import Album
 from app import db, auth
 import base64
 from app.helpers.response import response_json
-from app.repository import albums_repository
+from app.repository import albums_repository, notification_repository
+from app.algorithm.predict import CaptionGenerator
 
 albums_api = Blueprint('albums', __name__, url_prefix='/api/albums')
 
@@ -66,3 +67,49 @@ def delete_image(id):
         print(ex)
         return response_json("Bad params", 400)
 
+
+from multiprocessing import Process
+
+def process_captions(album_id):
+    try:
+        notification_repository.insert_notification("Algorithm started with album {}".format(album_id), "In progress")
+        result = {}
+        images = albums_repository.get_album_images(album_id)['images']
+        for image in images:
+            image_id = image['id']
+            caption = CaptionGenerator.Instance().generate_caption(image_id)
+            result[str(image_id)] = caption
+        notification_repository.insert_notification("Algorithm done with album {}".format(album_id), "Done")
+    except Exception as ex:
+        notification_repository.insert_notification("Algorithm erros with album {}. {}".format(album_id, ex), "Error")
+
+@albums_api.route('/algorithm/<int:id>', methods=["GET"])
+@auth.login_required
+def algorithm_album(id):
+    try:
+        p = Process(target=process_captions, args=(id,))
+        p.start()
+        return response_json({"message": "Processing started"}, status=200)
+    except Exception as ex:
+        print(ex)
+        return response_json("Bad params", 400)
+
+
+def process_caption_image(image_id):
+    try:
+        notification_repository.insert_notification("Algorithm started with image {}".format(image_id), "In progress")
+        CaptionGenerator.Instance().generate_caption(image_id)
+        notification_repository.insert_notification("Algorithm done with image {}".format(image_id), "Done")
+    except Exception as ex:
+        notification_repository.insert_notification("Algorithm error with image {}. {}".format(image_id, ex), "Error")
+
+@albums_api.route('/algorithm/image/<int:id>', methods=["GET"])
+@auth.login_required
+def algorithm_image(id):
+    try:
+        p = Process(target=process_caption_image, args=(id,))
+        p.start()
+        return response_json({"message": "Processing started"}, status=200)
+    except Exception as ex:
+        print(ex)
+        return response_json("Bad params", 400)

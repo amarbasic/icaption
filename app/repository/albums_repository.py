@@ -1,9 +1,11 @@
 from app.models.album import Album
 from app.models.user import User
 from app.models.image import Image
+from app.models.notification import Notification
 from app import db
 from flask import g
 import random
+from sqlalchemy import desc
 
 
 def get_albums(user):
@@ -76,8 +78,7 @@ def get_number_of_runs():
     return 3
 
 def get_notifications():
-    return [
-        {"message": "Algorithm for captioning Summer time gallery is done", "status": "Done", "date": "2018-21-01"},
-        {"message": "Exception occured", "status": "Error", "date": "2018-21-01"},
-        {"message": "Algorithm for captioning Summer time gallery is started", "status": "In progress", "date": "2018-21-01"},
-    ]
+    result = []
+    for notification in Notification.query.order_by(desc(Notification.created_at)).all():
+        result.append(notification.serialize)
+    return result

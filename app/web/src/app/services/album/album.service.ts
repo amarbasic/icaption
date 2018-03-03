@@ -45,4 +45,14 @@ export class AlbumsServices {
         return this.http.delete(url);
     }
 
+    generateImageCaption(image_id): Observable<any> {
+        var url = this._url + "algorithm/image/" + String(image_id)
+        return this.http.get(url);
+    }
+
+    generateAlbumCaption(album_id): Observable<any> {
+        var url = this._url + "algorithm/" + String(album_id)
+        return this.http.get(url);
+    }
+
 }

@@ -2,9 +2,9 @@ from keras.callbacks import ModelCheckpoint, TensorBoard
 import time
 import os
 from datetime import datetime
-from src.algorithm.generator import Generator
-from src.utils import helper
-from src.algorithm import model
+from app.algorithm.generator import Generator
+from app.algorithm import helper
+from app.algorithm import model
 
 import numpy as np
 

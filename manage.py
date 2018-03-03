@@ -13,3 +13,5 @@ manager.add_command('db', MigrateCommand)
 
 if __name__ == '__main__':
     manager.run()
+    # from app.algorithm import predict
+    # predict.generate_caption(1)

@@ -44,7 +44,7 @@
                         <b> {{ album.name }} </b>
                         <div style="float:right;">
                             <span class="btn btn-primary" (click)="newImages=!newImages">Add Images</span>
-                            <span class="btn btn-success" (click)="newImages=!newImages">Run Algorithm</span>
+                            <span class="btn btn-success" (click)="runAlgorithmAlbum(id)">Run Algorithm</span>
                             <span class="btn btn-danger" (click)="deleteGallery(id)">Delete</span>
                         </div>
                     </h4>
@@ -58,8 +58,7 @@
                                 <div class="middle">
                                     <div class="text">
                                         <p>
-                                            <b>Image caption: </b>{{ currentImage.name }} With Really Big Caption Generated
-                                            With Python Machine Learning
+                                            <b>Image caption: </b>{{ currentImage.caption }}
                                         </p>
                                         <p>
                                             <b>Created: </b>{{ currentImage.created_at }}
@@ -67,7 +66,7 @@
                                         <hr>
                                         <div>
                                             <div style="font-size: 0.9em;">
-                                                <a style="color:#7AC29A;" (click)="deleteImage(currentImage.id)">Run algorithm</a>
+                                                <a style="color:#7AC29A;" (click)="runAlgorithmImage(currentImage.id)">Run algorithm</a>
                                                 |
                                                 <a style="color:#EB5E28;" (click)="deleteImage(currentImage.id)">Delete</a>
                                             </div>

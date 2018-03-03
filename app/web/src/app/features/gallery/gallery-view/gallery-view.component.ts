@@ -69,6 +69,36 @@ export class GalleryViewComponent implements OnInit, OnDestroy {
 
     }
 
+    runAlgorithmAlbum(album_id) {
+        this.albumService.generateAlbumCaption(album_id).subscribe(
+            (res: any) => {
+                console.log(res);
+                this.router.navigateByUrl("/dashboard");
+            },
+            (err: any) => {
+                console.log(err);
+                if (err.error)
+                    this.toastr.error(err.error, 'Something went wrong!');
+                else this.toastr.error("Please try again", 'Something went wrong!');
+            }
+        );
+    }
+
+    runAlgorithmImage(image_id) {
+        this.albumService.generateImageCaption(image_id).subscribe(
+            (res: any) => {
+                console.log(res);
+                this.router.navigateByUrl("/dashboard");
+            },
+            (err: any) => {
+                console.log(err);
+                if (err.error)
+                    this.toastr.error(err.error, 'Something went wrong!');
+                else this.toastr.error("Please try again", 'Something went wrong!');
+            }
+        );
+    }
+
     deleteGallery(album_id) {
         this.albumService.deleteAlbum(album_id).subscribe(
             (res: any) => {

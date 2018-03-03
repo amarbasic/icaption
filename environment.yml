@@ -14,3 +14,8 @@ dependencies:
   - flask-migrate
   - psycopg2
   - flask-cors
+  - tensorflow
+  - keras
+  - pillow
+  - opencv
+  - pandas 
