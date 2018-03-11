@@ -7,6 +7,7 @@ import { SettingsComponent } from "./features/settings/settings.component";
 import { LoginComponent } from "./features/login/login.component";
 import { AuthGuard } from "./services/auth/auth.guard";
 import { GalleryViewComponent } from "./features/gallery/gallery-view/gallery-view.component";
+import { SearchedComponent } from "./features/searched/searched.component";
 
 
 
@@ -16,6 +17,7 @@ const routes: Routes = [
     { path: 'gallery/:id', component: GalleryViewComponent, canActivate: [AuthGuard] },
     { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
     { path: 'login', component: LoginComponent },
+    { path: "search", component: SearchedComponent, canActivate: [AuthGuard] },
     { path: '**', redirectTo: 'dashboard', pathMatch: 'full' }
 ];
 

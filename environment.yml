@@ -18,4 +18,5 @@ dependencies:
   - keras
   - pillow
   - opencv
-  - pandas 
+  - pandas
+  - nltk

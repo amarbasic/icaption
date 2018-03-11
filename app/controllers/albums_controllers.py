@@ -78,6 +78,7 @@ def process_captions(album_id):
         for image in images:
             image_id = image['id']
             caption = CaptionGenerator.Instance().generate_caption(image_id)
+            albums_repository.get_pos_for_captions(caption, image_id)
             result[str(image_id)] = caption
         notification_repository.insert_notification("Algorithm done with album {}".format(album_id), "Done")
     except Exception as ex:
@@ -98,7 +99,8 @@ def algorithm_album(id):
 def process_caption_image(image_id):
     try:
         notification_repository.insert_notification("Algorithm started with image {}".format(image_id), "In progress")
-        CaptionGenerator.Instance().generate_caption(image_id)
+        captions = CaptionGenerator.Instance().generate_caption(image_id)
+        albums_repository.get_pos_for_captions(captions, image_id)
         notification_repository.insert_notification("Algorithm done with image {}".format(image_id), "Done")
     except Exception as ex:
         notification_repository.insert_notification("Algorithm error with image {}. {}".format(image_id, ex), "Error")

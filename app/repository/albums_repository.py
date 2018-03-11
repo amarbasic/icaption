@@ -2,6 +2,13 @@ from app.models.album import Album
 from app.models.user import User
 from app.models.image import Image
 from app.models.notification import Notification
+from app.models.captions import Captions
+import nltk
+
+nltk.download('all')
+
+from sqlalchemy import or_
+
 from app import db
 from flask import g
 import random
@@ -75,10 +82,20 @@ def get_number_of_images():
     return sum([len(album.images) for album in Album.query.all()])
 
 def get_number_of_runs():
-    return 3
+    runs = Notification.query.filter(Notification.status == "In progress").count() - Notification.query.filter(or_(Notification.status == "Done", Notification.status == "Error")).count()
+    return runs
 
 def get_notifications():
     result = []
     for notification in Notification.query.order_by(desc(Notification.created_at)).all():
         result.append(notification.serialize)
     return result
+
+def get_pos_for_captions(captions, image_id):
+    tokenized = nltk.word_tokenize(captions)
+    for (word, pos_t) in nltk.pos_tag(tokenized):
+        print(word, pos_t)
+        entity = Captions(pos=word, pos_type=pos_t, image_id=image_id)
+        db.session.add(entity)
+    
+    db.session.commit()

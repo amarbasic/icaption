@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DashboardServices } from '../../services/dashboard/dashboard.service';
 
 @Component({
@@ -6,7 +6,7 @@ import { DashboardServices } from '../../services/dashboard/dashboard.service';
     templateUrl: 'dashboard.component.html',
     styleUrls: ['dashboard.component.css']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
 
     dashboard_data: any = {
         "galleries": 0,
@@ -15,12 +15,25 @@ export class DashboardComponent implements OnInit {
         "notifications": []
     }
 
+    interval: any;
+
     constructor(private dashboardService: DashboardServices) { }
 
     ngOnInit(): void {
+        this.refreshDashboard();
+        this.interval = setInterval(() => { 
+            this.refreshDashboard(); 
+        }, 5000);
+    }
+
+    ngOnDestroy() {
+        clearInterval(this.interval);
+    }
+
+    refreshDashboard() {
         this.dashboardService.getDashboard().subscribe(
             (res: any) => {
-                console.log(res);
+                console.log("Data from dashboard");
                 this.dashboard_data = res;
             },
             (err: any) => {
