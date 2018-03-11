@@ -5,9 +5,10 @@ from app.models.notification import Notification
 from app.models.captions import Captions
 import nltk
 
-nltk.download('all')
+# nltk.download('all')
 
 from sqlalchemy import or_
+from sqlalchemy import and_
 
 from app import db
 from flask import g
@@ -99,3 +100,31 @@ def get_pos_for_captions(captions, image_id):
         db.session.add(entity)
     
     db.session.commit()
+
+def search_images(caption):
+    tokenized = nltk.word_tokenize(caption)
+    pos = nltk.pos_tag(tokenized)
+    top_images = {}
+    # Get images that contains pos
+    for word, tag in pos:
+        if tag in ["NN", "VBG"]:
+            # bike, running
+            coeff = 1
+        elif tag in ["JJ"]:
+            coeff = 0.7
+        else:
+            # a, is, on
+            coeff = 0
+            
+
+        for image in Captions.query.filter(and_(Captions.pos_type == tag, Captions.pos == word)).all():
+            if image.image_id in top_images:
+                top_images[str(image.image_id)] += coeff
+            else:
+                top_images[str(image.image_id)] = coeff
+    
+    images = []
+    for image_id, count in sorted(top_images.items(), key=lambda kv: kv[1], reverse=True):
+        if count > 0:
+            images.append(Image.query.get(image_id).serialize)
+    return images

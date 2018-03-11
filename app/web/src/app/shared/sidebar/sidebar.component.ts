@@ -13,6 +13,7 @@ export interface RouteInfo {
 export const ROUTES: RouteInfo[] = [
     { path: 'dashboard', title: 'Dashboard', icon: 'fa fa-tachometer', class: '' },
     { path: 'gallery', title: 'Gallery', icon: 'fa fa-picture-o', class: '' },
+    { path: 'search', title: 'Search', icon: 'fa fa-search', class: '' }
 ];
 
 @Component({

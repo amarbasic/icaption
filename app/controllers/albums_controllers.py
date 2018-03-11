@@ -115,3 +115,14 @@ def algorithm_image(id):
     except Exception as ex:
         print(ex)
         return response_json("Bad params", 400)
+
+
+@albums_api.route('/search', methods=["POST"])
+@auth.login_required
+def search_images():
+    try:
+        images = albums_repository.search_images(request.json['caption'])
+        return response_json({"images": images}, status=200)
+    except Exception as ex:
+        print(ex)
+        return response_json("Bad params", 400)

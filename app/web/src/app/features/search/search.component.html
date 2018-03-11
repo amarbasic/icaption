@@ -1,0 +1,51 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="card">
+            <div class="contnet">
+                <div class="row">
+                    <div class="col-md-11 col-md-offset-1">
+                        <form (ngSubmit)="onSubmit();" #searchForm="ngForm">
+                            <div class="col-md-2">
+                                <label style="margin-top:8px;">Describe your image</label>
+                            </div>
+                            <div class="col-md-5">
+                                <input type="text" class="form-control border-input" [(ngModel)]="model.description" id="description" name="description"
+                                    placeholder="Description" required>
+                            </div>
+                            <div class="col-md-5">
+                                <button type="submit" class="btn btn-success" [disabled]="!searchForm.form.valid">Search</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="card" *ngIf="images">
+            <div class="header">
+                <h4 class="title">
+                    Search result
+                </h4>
+                <hr>
+            </div>
+            <div class="contnet">
+                <div class="row text-center text-lg-left">
+                    <div *ngFor="let currentImage of images" class="col-md-4">
+                        <div class="image-container">
+                            <img src="{{ currentImage.data }}" alt="{{ currentImage.name }}" class="image" style="width:100%">
+                            <div class="middle">
+                                <div class="text">
+                                    <p>{{ currentImage.caption }}</p>
+                                    <div style="font-size: 0.9em;">
+                                        <a (click)="navigateToGallery(currentImage.album_id)">Go to gallery</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

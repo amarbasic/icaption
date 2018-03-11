@@ -14,7 +14,6 @@ import { GalleryComponent } from './features/gallery/gallery-list/gallery.compon
 import { DashboardComponent } from './features/dashboard/dashboard.component';
 import { CommonModule } from '@angular/common';
 import { SettingsComponent } from './features/settings/settings.component';
-import { SearchComponent } from './shared/search/search.component';
 import { LoginComponent } from './features/login/login.component';
 import { AuthService } from './services/auth/auth.service';
 import { AuthGuard } from './services/auth/auth.guard';
@@ -26,8 +25,8 @@ import { GalleryViewComponent } from './features/gallery/gallery-view/gallery-vi
 // Libraries
 import {ToastModule} from 'ng2-toastr/ng2-toastr';
 import { DashboardServices } from './services/dashboard/dashboard.service';
-import { SearchedComponent } from './features/searched/searched.component';
-import { RouteProviderService } from './services/route-provider.service';
+import { SearchService } from './services/search.service';
+import { SearchComponent } from './features/search/search.component';
 
 
 
@@ -41,8 +40,7 @@ import { RouteProviderService } from './services/route-provider.service';
     SettingsComponent,
     SearchComponent,
     LoginComponent,
-    GalleryViewComponent,
-    SearchedComponent
+    GalleryViewComponent
   ],
   imports: [
     BrowserModule,
@@ -65,7 +63,7 @@ import { RouteProviderService } from './services/route-provider.service';
     UsersServices,
     AlbumsServices,
     DashboardServices,
-    RouteProviderService
+    SearchService
   ],
   bootstrap: [AppComponent]
 })
