@@ -97,7 +97,7 @@ class Generator(object):
     def _check_if_image_features_exists(self, image_name):
         if image_name in self.image_names_to_features:
             return True
-        print("Image {} does not exist.".format(image_name))
+        # print("\nImage {} does not exist.".format(image_name))
         return False
 
     def flow(self, train=True):

@@ -1,0 +1,2 @@
+1. epochs=1 batch_size=1 loss=?
+2. epochs=32 batch_size=32 loss=?

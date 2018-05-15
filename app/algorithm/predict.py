@@ -20,8 +20,8 @@ class CaptionGenerator:
         self.generator = Generator(batch_size=32)
         self.nn = model.generate(max_token_length=self.generator.MAX_TOKEN_LENGTH, vocabulary_size=self.generator.VOCABULARY_SIZE)
         data_path = helper.root_dir() + '/data/'
-        models_path = data_path + '/weights/2018-02-10-20-13'
-        model_names = (models_path + '/nn_weights.01-3.13.hdf5')
+        models_path = data_path + '/weights/2018-03-25-14-18'
+        model_names = (models_path + '/nn_weights.25-2.94.hdf5')
         self.nn.load_weights(model_names)
 
     def generate_caption(self, image_id):
