@@ -9,7 +9,7 @@ from app.algorithm import model
 import numpy as np
 
 
-def run(epochs=5000, batch_size=256):
+def run(epochs=50, batch_size=256):
     data_path = helper.root_dir() + '/data/'
 
     generator = Generator(batch_size=batch_size)

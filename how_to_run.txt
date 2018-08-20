@@ -1,0 +1,5 @@
+activate icaption
+set "KERAS_BACKEND=tensorflow"
+
+python manage.py runserver
+npm start

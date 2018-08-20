@@ -6,7 +6,7 @@ from keras.utils import plot_model
 
 def generate(max_token_length, vocabulary_size):
     num_image_features = 1000
-    hidden_size = 512
+    hidden_size = 1024
     embedding_size = 512
     regularizer = 1e-8
 

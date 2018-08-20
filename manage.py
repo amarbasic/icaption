@@ -12,6 +12,8 @@ manager = Manager(app)
 manager.add_command('db', MigrateCommand)
 
 if __name__ == '__main__':
-    manager.run()
+    # manager.run()
     # from app.algorithm import train
     # train.main()
+    from app.algorithm import data_preprocessing
+    data_preprocessing.main()

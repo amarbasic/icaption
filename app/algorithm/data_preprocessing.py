@@ -122,7 +122,7 @@ class DataPreprocessing(object):
         self.captions = captions
 
     def _lemmatize_sentence(self, caption):
-        incorrect_chars = digits + ";.,'/*?¿><:{}[\]|+"
+        incorrect_chars = digits + ";.,'/*?¿><:{}[\]|+()"
         char_translator = str.maketrans('', '', incorrect_chars)
         quotes_translator = str.maketrans('', '', '"')
         clean_caption = caption.strip().lower()
@@ -145,5 +145,5 @@ class DataPreprocessing(object):
         print('{} images loaded'.format(len(self.image_files)))
 
 
-if __name__ == '__main__':
-    DataPreprocessing(run_inception=True).run()
+def main():
+    DataPreprocessing(run_inception=True, word_threshold=5).run()
